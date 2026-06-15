@@ -81,8 +81,8 @@ public class BlockOverlayActivity extends Activity {
         vibrate();
 
         // Register receivers
-        registerReceiver(tickReceiver, new IntentFilter(AppMonitorService.ACTION_TICK));
-        registerReceiver(doneReceiver, new IntentFilter("com.focustimer.DONE"));
+        registerReceiver(tickReceiver, new IntentFilter(AppMonitorService.ACTION_TICK), Context.RECEIVER_NOT_EXPORTED);
+        registerReceiver(doneReceiver, new IntentFilter("com.focustimer.DONE"), Context.RECEIVER_NOT_EXPORTED);
 
         // Update timer from prefs
         PrefsManager prefs = new PrefsManager(this);
