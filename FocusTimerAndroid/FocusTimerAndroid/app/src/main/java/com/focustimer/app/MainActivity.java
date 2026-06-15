@@ -108,8 +108,8 @@ public class MainActivity extends AppCompatActivity {
         loadInstalledApps();
         checkPermissions();
 
-        registerReceiver(tickReceiver, new IntentFilter(AppMonitorService.ACTION_TICK));
-        registerReceiver(doneReceiver, new IntentFilter("com.focustimer.DONE"));
+        registerReceiver(tickReceiver, new IntentFilter(AppMonitorService.ACTION_TICK), Context.RECEIVER_NOT_EXPORTED);
+        registerReceiver(doneReceiver, new IntentFilter("com.focustimer.DONE"), Context.RECEIVER_NOT_EXPORTED);
 
         showTab(0);
     }
