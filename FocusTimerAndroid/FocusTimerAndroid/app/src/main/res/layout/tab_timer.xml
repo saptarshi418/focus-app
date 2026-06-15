@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0F0F0F"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Title -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Focus Timer"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Stay in the zone, get things done"
+            android:textColor="#888888"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Mode Switch -->
+        <RadioGroup
+            android:id="@+id/rgMode"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:background="@drawable/card_bg"
+            android:padding="4dp"
+            android:layout_marginBottom="12dp">
+
+            <RadioButton
+                android:id="@+id/rbNormal"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="🌿 Normal"
+                android:textColor="#FFFFFF"
+                android:button="@null"
+                android:gravity="center"
+                android:background="@drawable/mode_selector"
+                android:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/rbStrict"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="🔒 Strict"
+                android:textColor="#FFFFFF"
+                android:button="@null"
+                android:gravity="center"
+                android:background="@drawable/mode_selector"/>
+
+        </RadioGroup>
+
+        <!-- Mode label -->
+        <TextView
+            android:id="@+id/tvModeLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🌿 Normal — pause or stop anytime"
+            android:textColor="#22c55e"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- Big timer display -->
+        <TextView
+            android:id="@+id/tvTimerDisplay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="25:00"
+            android:textColor="#FFFFFF"
+            android:textSize="72sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:fontFamily="monospace"
+            android:letterSpacing="-0.05"
+            android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ready"
+            android:textColor="#888888"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:letterSpacing="0.12"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Preset duration buttons -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DURATION"
+            android:textColor="#666666"
+            android:textSize="11sp"
+            android:letterSpacing="0.12"
+            android:layout_marginBottom="10dp"/>
+
+        <LinearLayout
+            android:id="@+id/presetRow"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Blocked apps preview bar -->
+        <LinearLayout
+            android:id="@+id/blockedPreview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/blocked_bar_bg"
+            android:padding="12dp"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="🚫 "
+                android:textColor="#EF4444"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/tvBlockedCount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:text="0 apps will be blocked"
+                android:textColor="#CCCCCC"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit ›"
+                android:textColor="#888888"
+                android:textSize="13sp"/>
+
+        </LinearLayout>
+
+        <!-- Start / Stop buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp">
+
+            <Button
+                android:id="@+id/btnStart"
+                android:layout_width="0dp"
+                android:layout_height="54dp"
+                android:layout_weight="1"
+                android:text="▶  Start Focus"
+                android:textColor="#000000"
+                android:backgroundTint="#22c55e"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/btnStop"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:text="⏹"
+                android:textSize="20sp"
+                android:backgroundTint="#1A1A1A"
+                android:enabled="false"/>
+
+        </LinearLayout>
+
+        <!-- Strict lock banner -->
+        <LinearLayout
+            android:id="@+id/lockBanner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/blocked_bar_bg"
+            android:padding="12dp"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="12dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🔒 Strict mode — timer is locked until complete"
+                android:textColor="#EF4444"
+                android:textSize="13sp"/>
+
+        </LinearLayout>
+
+        <!-- Active block list (shown while timer runs) -->
+        <LinearLayout
+            android:id="@+id/activeBlockList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_bg"
+            android:padding="12dp"
+            android:layout_marginTop="4dp"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+</ScrollView>

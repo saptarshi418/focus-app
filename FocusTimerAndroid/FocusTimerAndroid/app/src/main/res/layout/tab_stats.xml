@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#0F0F0F"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Sessions"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/btnExport"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="⬇ Export CSV"
+            android:textSize="12sp"
+            android:backgroundTint="#1A1A1A"/>
+
+    </LinearLayout>
+
+    <!-- Summary cards -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="@drawable/card_bg"
+            android:padding="12dp"
+            android:layout_marginEnd="6dp">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="TOTAL FOCUS" android:textColor="#666666" android:textSize="10sp" android:letterSpacing="0.1"/>
+            <TextView android:id="@+id/tvTotalFocus" android:layout_width="match_parent"
+                android:layout_height="0dp" android:layout_weight="1"
+                android:text="0m" android:textColor="#6366F1" android:textSize="24sp" android:textStyle="bold"
+                android:gravity="center_vertical"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="@drawable/card_bg"
+            android:padding="12dp">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="COMPLETION" android:textColor="#666666" android:textSize="10sp" android:letterSpacing="0.1"/>
+            <TextView android:id="@+id/tvCompletionRate" android:layout_width="match_parent"
+                android:layout_height="0dp" android:layout_weight="1"
+                android:text="—" android:textColor="#22c55e" android:textSize="24sp" android:textStyle="bold"
+                android:gravity="center_vertical"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="@drawable/card_bg"
+            android:padding="10dp"
+            android:layout_marginEnd="6dp">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="NORMAL" android:textColor="#666666" android:textSize="10sp" android:letterSpacing="0.1"/>
+            <TextView android:id="@+id/tvNormal" android:layout_width="match_parent"
+                android:layout_height="0dp" android:layout_weight="1"
+                android:text="0" android:textColor="#FFFFFF" android:textSize="20sp" android:textStyle="bold"
+                android:gravity="center_vertical"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="@drawable/card_bg"
+            android:padding="10dp">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="STRICT" android:textColor="#666666" android:textSize="10sp" android:letterSpacing="0.1"/>
+            <TextView android:id="@+id/tvStrict" android:layout_width="match_parent"
+                android:layout_height="0dp" android:layout_weight="1"
+                android:text="0" android:textColor="#EF4444" android:textSize="20sp" android:textStyle="bold"
+                android:gravity="center_vertical"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="HISTORY"
+        android:textColor="#666666"
+        android:textSize="11sp"
+        android:letterSpacing="0.12"
+        android:layout_marginBottom="8dp"/>
+
+    <ListView
+        android:id="@+id/sessionsListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@null"
+        android:scrollbars="none"/>
+
+    <Button
+        android:id="@+id/btnClearHistory"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Clear all history"
+        android:textSize="13sp"
+        android:textColor="#888888"
+        android:backgroundTint="#1A1A1A"
+        android:layout_marginTop="8dp"/>
+
+</LinearLayout>
