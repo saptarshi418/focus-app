@@ -264,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // ── Timer logic ───────────────────────────────────────────
-    private void handleStartPause() {
+   private void handleStartPause() {
         if (!timerRunning && !timerPaused) {
             if (!hasUsagePermission()) {
                 requestUsagePermission();
@@ -273,6 +273,9 @@ public class MainActivity extends AppCompatActivity {
             startTimer();
         } else if (timerRunning && !"strict".equals(timerMode)) {
             pauseTimer();
+        } else if (timerRunning && "strict".equals(timerMode)) {
+            // strict mode running — do nothing, just ignore tap
+            return;
         } else if (timerPaused) {
             resumeTimer();
         }
@@ -374,6 +377,7 @@ public class MainActivity extends AppCompatActivity {
                 tvStatus.setText("LOCKED IN");
                 btnStart.setText("🔒  Locked");
                 btnStart.setEnabled(false);
+                btnStart.setAlpha(0.5f);
                 lockBanner.setVisibility(View.VISIBLE);
             } else {
                 tvStatus.setText("Focusing...");
@@ -444,26 +448,27 @@ public class MainActivity extends AppCompatActivity {
 
     // ── Apps tab ──────────────────────────────────────────────
     private void loadInstalledApps() {
-        new Thread(() -> {
-            PackageManager pm = getPackageManager();
-            List<ApplicationInfo> installed = pm.getInstalledApplications(PackageManager.GET_META_DATA);
-            List<AppInfo> apps = new ArrayList<>();
-            for (ApplicationInfo info : installed) {
-                // Only show launchable apps
-                if (pm.getLaunchIntentForPackage(info.packageName) == null) continue;
-                if (info.packageName.equals(getPackageName())) continue;
-                String name = pm.getApplicationLabel(info).toString();
-                boolean blocked = blockedPackages.contains(info.packageName);
-                apps.add(new AppInfo(info.packageName, name, "App", blocked));
-            }
-            apps.sort((a, b) -> a.appName.compareToIgnoreCase(b.appName));
-            handler.post(() -> {
-                allApps.clear();
-                allApps.addAll(apps);
-                filterApps("");
-            });
-        }).start();
-    }
+    new Thread(() -> {
+        PackageManager pm = getPackageManager();
+        Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
+        mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        List<android.content.pm.ResolveInfo> resolveInfos = pm.queryIntentActivities(mainIntent, 0);
+        List<AppInfo> apps = new ArrayList<>();
+        for (android.content.pm.ResolveInfo ri : resolveInfos) {
+            String pkg = ri.activityInfo.packageName;
+            if (pkg.equals(getPackageName())) continue;
+            String name = ri.loadLabel(pm).toString();
+            boolean blocked = blockedPackages.contains(pkg);
+            apps.add(new AppInfo(pkg, name, "App", blocked));
+        }
+        apps.sort((a, b) -> a.appName.compareToIgnoreCase(b.appName));
+        handler.post(() -> {
+            allApps.clear();
+            allApps.addAll(apps);
+            filterApps("");
+        });
+    }).start();
+}
 
     private void filterApps(String query) {
         filteredApps.clear();
