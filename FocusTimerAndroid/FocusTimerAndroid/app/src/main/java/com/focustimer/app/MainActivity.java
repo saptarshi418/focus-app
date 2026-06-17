@@ -450,21 +450,33 @@ public class MainActivity extends AppCompatActivity {
     private void loadInstalledApps() {
     new Thread(() -> {
         PackageManager pm = getPackageManager();
+        List<AppInfo> apps = new ArrayList<>();
+
+        // Get all apps that have a launcher icon
         Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-        List<android.content.pm.ResolveInfo> resolveInfos = pm.queryIntentActivities(mainIntent, 0);
-        List<AppInfo> apps = new ArrayList<>();
+        List<android.content.pm.ResolveInfo> resolveInfos =
+            pm.queryIntentActivities(mainIntent, PackageManager.MATCH_ALL);
+
         for (android.content.pm.ResolveInfo ri : resolveInfos) {
             String pkg = ri.activityInfo.packageName;
+            // Skip our own app and pure system packages
             if (pkg.equals(getPackageName())) continue;
+            if (pkg.equals("android")) continue;
             String name = ri.loadLabel(pm).toString();
             boolean blocked = blockedPackages.contains(pkg);
             apps.add(new AppInfo(pkg, name, "App", blocked));
         }
-        apps.sort((a, b) -> a.appName.compareToIgnoreCase(b.appName));
+
+        // Remove duplicates
+        Map<String, AppInfo> unique = new LinkedHashMap<>();
+        for (AppInfo a : apps) unique.put(a.packageName, a);
+        List<AppInfo> finalList = new ArrayList<>(unique.values());
+        finalList.sort((a, b) -> a.appName.compareToIgnoreCase(b.appName));
+
         handler.post(() -> {
             allApps.clear();
-            allApps.addAll(apps);
+            allApps.addAll(finalList);
             filterApps("");
         });
     }).start();
